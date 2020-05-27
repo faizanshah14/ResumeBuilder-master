@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title Resume Builder Website</title>
+
+    <!--Bootstrap css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--Toaster CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" media="all">
+    <!--datatables CSS-->
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!--Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Space+Mono&display=swap" rel="stylesheet">
+    <!-- Google Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--FONTAWESOME CSS-->
+    <script src="https://kit.fontawesome.com/9fc9b91836.js" crossorigin="anonymous"></script>
+
+
+
+    @Styles.Render("~/Content/custom.css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+</head>
+<body style="font-family: 'Raleway', sans-serif;">
+
+    <div class="navbar navbar-dark bg-dark navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                @Html.ActionLink("Resume Builder Website", "AllPosts", "Admin", new { area = "" }, new { @class = "navbar-brand", style = "font-family: 'Julius Sans One', sans-serif;" })
+                <button onclick="location.href='@Url.Action("AllPosts", "Admin")';return false;" class="btn btn-primary mr-3 float-right px-3">All positions</button>
+
+            </div>
+            <button onclick="location.href='@Url.Action("Login", "Admin")';return false;" class="btn btn-success float-right px-5">Login as Admin</button>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+
+        <footer></footer>
+    </div>
+
+
+
+
+    @*@Scripts.Render("~/bundles/jquery-3.4.1.js")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/Scripts/jquery.validate.min.js")
+        @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+        @Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")*@
+
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+            integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+            crossorigin="anonymous"></script>
+    <!--Toaster js ALWAYS USE JQUERY UNCOMPRESSED FOR TOASTR JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+
+
+    <!--DATATABLE JS -->
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+
+
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
+

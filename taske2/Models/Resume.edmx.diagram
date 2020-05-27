@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="56e420aa088e4a3c83ea879199c8a19f" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="DBCVModel.Certification" Width="1.5" PointX="5.625" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCVModel.Education" Width="1.5" PointX="8.375" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCVModel.Language" Width="1.5" PointX="8.375" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCVModel.Person" Width="1.5" PointX="5.5" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCVModel.Skill" Width="1.5" PointX="2" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCVModel.WorkExperience" Width="1.5" PointX="2" PointY="2.5" IsExpanded="true" />
+        <AssociationConnector Association="DBCVModel.foreignkey" ManuallyRouted="false" />
+        <AssociationConnector Association="DBCVModel.foreignkey2Person" ManuallyRouted="false" />
+        <AssociationConnector Association="DBCVModel.foreignkey5Person" ManuallyRouted="false" />
+        <AssociationConnector Association="DBCVModel.foreignkey3Person" ManuallyRouted="false" />
+        <AssociationConnector Association="DBCVModel.foreignkey4Person" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="DBCVModel.UserPassword" Width="1.5" PointX="8.75" PointY="8.375" />
+        <EntityTypeShape EntityType="DBCVModel.internship_post" Width="1.5" PointX="12.25" PointY="8.125" />
+        <AssociationConnector Association="DBCVModel.FK_post_ToTable" />
+        <EntityTypeShape EntityType="DBCVModel.applied_post" Width="1.5" PointX="14.625" PointY="4.25" />
+        <AssociationConnector Association="DBCVModel.FK_applied_post_personid" />
+        <AssociationConnector Association="DBCVModel.FK_Table_post" />
+        <EntityTypeShape EntityType="DBCVModel.Table" Width="1.5" PointX="0.75" PointY="9.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

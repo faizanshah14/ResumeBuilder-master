@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "addAdmin";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@model taske2.ViewModel.EducationVM
+@{
+    ViewBag.Title = "Education";
+}
+
+
+<div class="container col-12">
+    <div class="col-8 mx-auto mt-5 ">
+
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h1>New Admin Details</h1></div>
+        <hr />
+
+        <div class="card  mx-auto shadow-lg custom-bg">
+            <div class="card-body p-5">
+                <!--Details-->
+                <div class="col-12 px-5 pb-5 mx-auto" style="border-right: 2px solid #808080;">
+
+                    <form class="form" action="addAdminPost" method="post" enctype="application/x-www-form-urlencoded">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group ">
+                            <label class="font-weight-bold" for="username">Email</label>
+                            <input type="email" class="form-control py-3" name="email" id="email" placeholder="Enter Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="password">Password</label>
+                            <input type="password" class="form-control py-3" name="password" id="password" placeholder="Enter Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary float-right pl-5 pr-5">Add Admin</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@section scripts{
+
+    @if (ViewBag.ErrorMessage != null)
+    {
+        <script type="text/javascript">
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.error("@ViewBag.ErrorMessage")
+        </script>
+    }
+    @if (ViewBag.successMessage != null)
+    {
+        <script type="text/javascript">
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+            toastr.success("@ViewBag.ErrorMessage")
+        </script>
+    }
+
+}

@@ -1,0 +1,21 @@
+﻿@{
+    ViewBag.Title = "SkiCerfLang";
+
+
+}
+
+
+
+    <div>
+        
+            @{ Html.RenderAction("SkillsPartial", "Resume", TempData["SkillsHistory"]); }
+            @{ Html.RenderAction("CertificationsPartial", "Resume", TempData["CertificatesHistory"]); }
+            @{ Html.RenderAction("LanguagePartial", "Resume", TempData["LanguageHistory"]); }
+
+      <!--NEXT STEP BUTTON -->
+      <button onclick="location.href='@Url.Action("Options", "Resume")';return false;" class="btn btn-primary mt-3 float-right px-5 mb-5">Next Step</button>
+       
+    </div>
+
+
+

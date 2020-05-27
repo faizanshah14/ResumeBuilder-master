@@ -1,0 +1,111 @@
+﻿@model taske2.ViewModel.PostVM
+    @{
+        ViewBag.Title = "Options";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <style>
+        .labl {
+        }
+
+            .labl > input { /* HIDE RADIO */
+                visibility: hidden; /* Makes input not-clickable */
+            }
+
+                .labl > input + div { /* DIV STYLES */
+                    cursor: pointer;
+                    border: 2px solid transparent;
+                }
+
+                .labl > input:checked + div { /* (RADIO CHECKED) DIV STYLES */
+                    background-color: #DCDCDC;
+                    border: 1px solid #000000;
+                }
+    </style>
+
+
+    <div class="container col-md-12">
+        <div class="col-md-12 mx-auto mt-5 ">
+            <div style="font-family: 'Julius Sans One', sans-serif;"><h1>Please Choose Template Type</h1></div>
+            <div style="font-family: 'Julius Sans One', sans-serif;"><h5>Final Step</h5></div>
+
+            <hr />
+
+            <div class="card shadow-lg">
+                <div class="card-body mx-auto p-3">
+
+                    <form action="SelectOption" method="post" enctype="application/x-www-form-urlencoded">
+
+
+                        <div class="col-12">
+                            <div class="form-row">
+                                <div class="form-group col-6 ">
+                                    <label class="labl">
+                                        <input type="radio" name="option" value="compact" checked="checked" />
+                                        <div class="mx-auto text-center p-5">
+                                            <div class="p-5">
+                                                <h4>Compact</h4>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                                <div class="form-group col-6">
+                                    <label class="labl">
+                                        <input type="radio" name="option" value="standard" />
+                                        <div class="mx-auto text-center p-5">
+                                            <div class="p-5">
+                                                <h4>Standard</h4>
+                                            </div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-9">
+                            <input type="submit" class="btn btn-primary float-right pr-5 pl-5" value="Save and download PDF" />
+                        </div>
+
+
+                    </form>
+
+
+
+
+                </div>
+            </div>
+
+            <div class="mt-5">
+                <div style="font-family: 'Julius Sans One', sans-serif;"><h5>Current Available Positions</h5></div>
+                <hr />
+
+                @using (Html.BeginForm("PositionApply", "Resume", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken();
+                    @Html.HiddenFor(model => model.ID);
+
+                    <div class="col-10">
+                        <div class="form-row ">
+                            <div class="form-group col-6">
+                                @Html.DropDownListFor(model => model.ListOfPosts, Model.ListOfPosts, new { @class = "form-control  form-control-sm", @required = "" })
+                            </div>
+                            <div class="form-group col-6">
+                               <button type="submit" class="btn-primary btn">
+                        <i class="fas fa-check"></i>Apply
+                    </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                   
+                    
+
+                }
+
+
+
+            </div>
+                </div>
+

@@ -1,0 +1,662 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBCVModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="applied_post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="post_id" Type="int" />
+          <Property Name="person_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Certification">
+          <Key>
+            <PropertyRef Name="IdCertificate" />
+          </Key>
+          <Property Name="IdCertificate" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CertificateName" Type="varchar" MaxLength="50" />
+          <Property Name="CertificationAuthority" Type="varchar" MaxLength="50" />
+          <Property Name="CertificationLevel" Type="varchar" MaxLength="50" />
+          <Property Name="IDPerson" Type="int" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="IDEducation" />
+          </Key>
+          <Property Name="IDEducation" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InstituteName" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Degree" Type="varchar" MaxLength="50" />
+          <Property Name="FromYear" Type="varchar" MaxLength="50" />
+          <Property Name="ToYear" Type="varchar" MaxLength="50" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="IDPerson" Type="int" />
+          <Property Name="CGPA" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="internship_post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar(max)" />
+          <Property Name="Post_time" Type="varchar" MaxLength="50" />
+          <Property Name="End_time" Type="nchar" MaxLength="10" />
+          <Property Name="adminEmail" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="IDLanguage" />
+          </Key>
+          <Property Name="IDLanguage" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LanguageName" Type="varchar" MaxLength="50" />
+          <Property Name="Proficiency" Type="varchar" MaxLength="50" />
+          <Property Name="IDPerson" Type="int" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="IDperson" />
+          </Key>
+          <Property Name="IDperson" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="DateOfBirth" Type="varchar" MaxLength="50" />
+          <Property Name="Nationality" Type="varchar" MaxLength="50" />
+          <Property Name="EducationalLevel" Type="varchar" MaxLength="50" />
+          <Property Name="Address" Type="varchar" MaxLength="50" />
+          <Property Name="TelephoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="Summary" Type="varchar" MaxLength="100" />
+          <Property Name="LinkedinProfile" Type="varchar" MaxLength="50" />
+          <Property Name="FacebookProfile" Type="varchar" MaxLength="50" />
+          <Property Name="ProfilePicture" Type="varchar(max)" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="IDSkill" />
+          </Key>
+          <Property Name="IDSkill" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SkillName" Type="varchar" MaxLength="50" />
+          <Property Name="IDPerson" Type="int" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserPassword">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="WorkExperience">
+          <Key>
+            <PropertyRef Name="IDexperience" />
+          </Key>
+          <Property Name="IDexperience" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="varchar" MaxLength="50" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="FromYear" Type="varchar" MaxLength="50" />
+          <Property Name="ToYear" Type="varchar" MaxLength="50" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="IDPerson" Type="int" />
+        </EntityType>
+        <Association Name="FK_applied_post_personid">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="applied_post" Type="Self.applied_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="applied_post">
+              <PropertyRef Name="person_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_post_ToTable">
+          <End Role="UserPassword" Type="Self.UserPassword" Multiplicity="0..1" />
+          <End Role="internship_post" Type="Self.internship_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserPassword">
+              <PropertyRef Name="username" />
+            </Principal>
+            <Dependent Role="internship_post">
+              <PropertyRef Name="adminEmail" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Table_post">
+          <End Role="internship_post" Type="Self.internship_post" Multiplicity="0..1" />
+          <End Role="applied_post" Type="Self.applied_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="internship_post">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="applied_post">
+              <PropertyRef Name="post_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Certification" Type="Self.Certification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="Certification">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey2Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey3Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="WorkExperience">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey4Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey5Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Language" Type="Self.Language" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="Language">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBCVModelStoreContainer">
+          <EntitySet Name="applied_post" EntityType="Self.applied_post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Certification" EntityType="Self.Certification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Education" EntityType="Self.Education" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="internship_post" EntityType="Self.internship_post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Language" EntityType="Self.Language" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skill" EntityType="Self.Skill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserPassword" EntityType="Self.UserPassword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="WorkExperience" EntityType="Self.WorkExperience" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_applied_post_personid" Association="Self.FK_applied_post_personid">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="applied_post" EntitySet="applied_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_post_ToTable" Association="Self.FK_post_ToTable">
+            <End Role="UserPassword" EntitySet="UserPassword" />
+            <End Role="internship_post" EntitySet="internship_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_post" Association="Self.FK_Table_post">
+            <End Role="internship_post" EntitySet="internship_post" />
+            <End Role="applied_post" EntitySet="applied_post" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey" Association="Self.foreignkey">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Certification" EntitySet="Certification" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey2Person" Association="Self.foreignkey2Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Education" EntitySet="Education" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey3Person" Association="Self.foreignkey3Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="WorkExperience" EntitySet="WorkExperience" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey4Person" Association="Self.foreignkey4Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Skill" EntitySet="Skill" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey5Person" Association="Self.foreignkey5Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Language" EntitySet="Language" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBCVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Certification">
+          <Key>
+            <PropertyRef Name="IdCertificate" />
+          </Key>
+          <Property Name="IdCertificate" Type="Int32" Nullable="false" />
+          <Property Name="CertificateName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CertificationAuthority" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CertificationLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDPerson" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="Self.foreignkey" FromRole="Certification" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Education">
+          <Key>
+            <PropertyRef Name="IDEducation" />
+          </Key>
+          <Property Name="IDEducation" Type="Int32" Nullable="false" />
+          <Property Name="InstituteName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Degree" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FromYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDPerson" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="Self.foreignkey2Person" FromRole="Education" ToRole="Person" />
+          <Property Name="CGPA" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="IDLanguage" />
+          </Key>
+          <Property Name="IDLanguage" Type="Int32" Nullable="false" />
+          <Property Name="LanguageName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Proficiency" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDPerson" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="Self.foreignkey5Person" FromRole="Language" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="IDperson" />
+          </Key>
+          <Property Name="IDperson" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateOfBirth" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Nationality" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EducationalLevel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TelephoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Summary" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LinkedinProfile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FacebookProfile" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProfilePicture" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Certifications" Relationship="Self.foreignkey" FromRole="Person" ToRole="Certification" />
+          <NavigationProperty Name="Educations" Relationship="Self.foreignkey2Person" FromRole="Person" ToRole="Education" />
+          <NavigationProperty Name="Languages" Relationship="Self.foreignkey5Person" FromRole="Person" ToRole="Language" />
+          <NavigationProperty Name="WorkExperiences" Relationship="Self.foreignkey3Person" FromRole="Person" ToRole="WorkExperience" />
+          <NavigationProperty Name="Skills" Relationship="Self.foreignkey4Person" FromRole="Person" ToRole="Skill" />
+          <NavigationProperty Name="applied_post" Relationship="DBCVModel.FK_applied_post_personid" FromRole="Person" ToRole="applied_post" />
+        </EntityType>
+        <EntityType Name="Skill">
+          <Key>
+            <PropertyRef Name="IDSkill" />
+          </Key>
+          <Property Name="IDSkill" Type="Int32" Nullable="false" />
+          <Property Name="SkillName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDPerson" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="Self.foreignkey4Person" FromRole="Skill" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="WorkExperience">
+          <Key>
+            <PropertyRef Name="IDexperience" />
+          </Key>
+          <Property Name="IDexperience" Type="Int32" Nullable="false" />
+          <Property Name="Company" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FromYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ToYear" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDPerson" Type="Int32" />
+          <NavigationProperty Name="Person" Relationship="Self.foreignkey3Person" FromRole="WorkExperience" ToRole="Person" />
+        </EntityType>
+        <Association Name="foreignkey">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Certification" Type="Self.Certification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="Certification">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey2Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Education" Type="Self.Education" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="Education">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey5Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Language" Type="Self.Language" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="Language">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey3Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="WorkExperience" Type="Self.WorkExperience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="WorkExperience">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="foreignkey4Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="0..1" />
+          <End Role="Skill" Type="Self.Skill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="IDperson" />
+            </Principal>
+            <Dependent Role="Skill">
+              <PropertyRef Name="IDPerson" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="resumerdatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Certifications" EntityType="Self.Certification" />
+          <EntitySet Name="Educations" EntityType="Self.Education" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="Skills" EntityType="Self.Skill" />
+          <EntitySet Name="WorkExperiences" EntityType="Self.WorkExperience" />
+          <AssociationSet Name="foreignkey" Association="Self.foreignkey">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Certification" EntitySet="Certifications" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey2Person" Association="Self.foreignkey2Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Education" EntitySet="Educations" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey5Person" Association="Self.foreignkey5Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Language" EntitySet="Languages" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey3Person" Association="Self.foreignkey3Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="WorkExperience" EntitySet="WorkExperiences" />
+          </AssociationSet>
+          <AssociationSet Name="foreignkey4Person" Association="Self.foreignkey4Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="Skill" EntitySet="Skills" />
+          </AssociationSet>
+          <EntitySet Name="UserPassword" EntityType="DBCVModel.UserPassword" />
+          <EntitySet Name="internship_post" EntityType="DBCVModel.internship_post" />
+          <AssociationSet Name="FK_post_ToTable" Association="DBCVModel.FK_post_ToTable">
+            <End Role="UserPassword" EntitySet="UserPassword" />
+            <End Role="internship_post" EntitySet="internship_post" />
+          </AssociationSet>
+          <EntitySet Name="applied_post" EntityType="DBCVModel.applied_post" />
+          <AssociationSet Name="FK_applied_post_personid" Association="DBCVModel.FK_applied_post_personid">
+            <End Role="Person" EntitySet="People" />
+            <End Role="applied_post" EntitySet="applied_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Table_post" Association="DBCVModel.FK_Table_post">
+            <End Role="internship_post" EntitySet="internship_post" />
+            <End Role="applied_post" EntitySet="applied_post" />
+          </AssociationSet>
+          <EntitySet Name="Table" EntityType="DBCVModel.Table" />
+        </EntityContainer>
+        <EntityType Name="UserPassword">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="internship_post" Relationship="DBCVModel.FK_post_ToTable" FromRole="UserPassword" ToRole="internship_post" />
+        </EntityType>
+        <EntityType Name="internship_post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="Post_time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="End_time" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="UserPassword" Relationship="DBCVModel.FK_post_ToTable" FromRole="internship_post" ToRole="UserPassword" />
+          <NavigationProperty Name="applied_post" Relationship="DBCVModel.FK_Table_post" FromRole="internship_post" ToRole="applied_post" />
+        </EntityType>
+        <Association Name="FK_post_ToTable">
+          <End Type="DBCVModel.UserPassword" Role="UserPassword" Multiplicity="0..1" />
+          <End Type="DBCVModel.internship_post" Role="internship_post" Multiplicity="*" />
+        </Association>
+        <EntityType Name="applied_post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="DBCVModel.FK_applied_post_personid" FromRole="applied_post" ToRole="Person" />
+          <NavigationProperty Name="internship_post" Relationship="DBCVModel.FK_Table_post" FromRole="applied_post" ToRole="internship_post" />
+        </EntityType>
+        <Association Name="FK_applied_post_personid">
+          <End Type="DBCVModel.Person" Role="Person" Multiplicity="0..1" />
+          <End Type="DBCVModel.applied_post" Role="applied_post" Multiplicity="*" />
+        </Association>
+        <Association Name="FK_Table_post">
+          <End Type="DBCVModel.internship_post" Role="internship_post" Multiplicity="0..1" />
+          <End Type="DBCVModel.applied_post" Role="applied_post" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="username" />
+          </Key>
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBCVModelStoreContainer" CdmEntityContainer="resumerdatabaseEntities">
+          <EntitySetMapping Name="Certifications">
+            <EntityTypeMapping TypeName="DBCVModel.Certification">
+              <MappingFragment StoreEntitySet="Certification">
+                <ScalarProperty Name="IdCertificate" ColumnName="IdCertificate" />
+                <ScalarProperty Name="CertificateName" ColumnName="CertificateName" />
+                <ScalarProperty Name="CertificationAuthority" ColumnName="CertificationAuthority" />
+                <ScalarProperty Name="CertificationLevel" ColumnName="CertificationLevel" />
+                <ScalarProperty Name="IDPerson" ColumnName="IDPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Educations">
+            <EntityTypeMapping TypeName="DBCVModel.Education">
+              <MappingFragment StoreEntitySet="Education">
+                <ScalarProperty Name="CGPA" ColumnName="CGPA" />
+                <ScalarProperty Name="IDEducation" ColumnName="IDEducation" />
+                <ScalarProperty Name="InstituteName" ColumnName="InstituteName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Degree" ColumnName="Degree" />
+                <ScalarProperty Name="FromYear" ColumnName="FromYear" />
+                <ScalarProperty Name="ToYear" ColumnName="ToYear" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="IDPerson" ColumnName="IDPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Languages">
+            <EntityTypeMapping TypeName="DBCVModel.Language">
+              <MappingFragment StoreEntitySet="Language">
+                <ScalarProperty Name="IDLanguage" ColumnName="IDLanguage" />
+                <ScalarProperty Name="LanguageName" ColumnName="LanguageName" />
+                <ScalarProperty Name="Proficiency" ColumnName="Proficiency" />
+                <ScalarProperty Name="IDPerson" ColumnName="IDPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="DBCVModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="IDperson" ColumnName="IDperson" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+                <ScalarProperty Name="Nationality" ColumnName="Nationality" />
+                <ScalarProperty Name="EducationalLevel" ColumnName="EducationalLevel" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="TelephoneNumber" ColumnName="TelephoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="LinkedinProfile" ColumnName="LinkedinProfile" />
+                <ScalarProperty Name="FacebookProfile" ColumnName="FacebookProfile" />
+                <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="DBCVModel.Skill">
+              <MappingFragment StoreEntitySet="Skill">
+                <ScalarProperty Name="IDSkill" ColumnName="IDSkill" />
+                <ScalarProperty Name="SkillName" ColumnName="SkillName" />
+                <ScalarProperty Name="IDPerson" ColumnName="IDPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="WorkExperiences">
+            <EntityTypeMapping TypeName="DBCVModel.WorkExperience">
+              <MappingFragment StoreEntitySet="WorkExperience">
+                <ScalarProperty Name="IDexperience" ColumnName="IDexperience" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="FromYear" ColumnName="FromYear" />
+                <ScalarProperty Name="ToYear" ColumnName="ToYear" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IDPerson" ColumnName="IDPerson" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserPassword">
+            <EntityTypeMapping TypeName="DBCVModel.UserPassword">
+              <MappingFragment StoreEntitySet="UserPassword">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="internship_post">
+            <EntityTypeMapping TypeName="DBCVModel.internship_post">
+              <MappingFragment StoreEntitySet="internship_post">
+                <ScalarProperty Name="End_time" ColumnName="End_time" />
+                <ScalarProperty Name="Post_time" ColumnName="Post_time" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_post_ToTable" TypeName="DBCVModel.FK_post_ToTable" StoreEntitySet="internship_post">
+            <EndProperty Name="internship_post">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <EndProperty Name="UserPassword">
+              <ScalarProperty Name="username" ColumnName="adminEmail" />
+            </EndProperty>
+            <Condition ColumnName="adminEmail" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="applied_post">
+            <EntityTypeMapping TypeName="DBCVModel.applied_post">
+              <MappingFragment StoreEntitySet="applied_post">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK_applied_post_personid" TypeName="DBCVModel.FK_applied_post_personid" StoreEntitySet="applied_post">
+            <EndProperty Name="applied_post">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <EndProperty Name="Person">
+              <ScalarProperty Name="IDperson" ColumnName="person_id" />
+            </EndProperty>
+            <Condition ColumnName="person_id" IsNull="false" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK_Table_post" TypeName="DBCVModel.FK_Table_post" StoreEntitySet="applied_post">
+            <EndProperty Name="applied_post">
+              <ScalarProperty Name="Id" ColumnName="Id" />
+            </EndProperty>
+            <EndProperty Name="internship_post">
+              <ScalarProperty Name="Id" ColumnName="post_id" />
+            </EndProperty>
+            <Condition ColumnName="post_id" IsNull="false" />
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Table">
+            <EntityTypeMapping TypeName="DBCVModel.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="username" ColumnName="username" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

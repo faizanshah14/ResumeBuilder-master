@@ -1,0 +1,132 @@
+﻿@model taske2.ViewModel.PostVM
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="container col-md-12 mb-5">
+    <div class="col-md-12 mx-auto mt-5 ">
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h1>Opportunities</h1></div>
+        <hr />
+
+
+
+        @{
+        if (ViewBag.All_Posts != null)
+        {
+
+        foreach (taske2.ViewModel.PostVM post in ViewBag.All_Posts)
+        {
+
+        <div class="card shadow-lg my-3">
+            <div class="card-header">
+                <nav>
+                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-overview-tab" data-toggle="tab" href="#nav-overview-@post.ID" role="tab" aria-controls="nav-overview" aria-selected="true">Details</a>
+                        @{
+                        if (ViewBag.user_admin == true)
+                        {
+                        <a class="nav-item nav-link" id="nav-applications-tab" data-toggle="tab" href="#nav-Application-@post.ID" role="tab" aria-controls="#nav-files" aria-selected="false">Applications</a>
+                        }
+                        }
+                    </div>
+                </nav>
+            </div>
+
+
+
+
+            <div class="card-body p-5 ">
+                <div class="tab-content" id="nav-tab">
+                    <div class="col-5 tab-pane fade show active" role="tabpanel" id="nav-overview-@post.ID">
+                        <h5 class="card-title2">@post.Title</h5>
+                        <p class="card-text">@post.Description</p>
+                        <p class="card-text">
+                            <div class="text-danger ">Deadline:  @post.End_time</div>
+                            @if (ViewBag.user_admin == true)
+                            {
+                            using (Html.BeginForm("DeletePOST", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                            @Html.AntiForgeryToken();
+                            @Html.Hidden("ID", post.ID);
+                            <button type="submit" class="btn-danger mx-2 btn float-right" onclick="getConfirmation(); return false;"> <i class="fas fa-trash-alt"></i> Delete </button>
+                            }
+
+                            using (Html.BeginForm("EditPOST", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                            {
+                            @Html.AntiForgeryToken();
+                            @Html.Hidden("ID", post.ID);
+                            <button type="submit" class="btn-primary btn float-right"><i class="fas fa-edit"></i> Edit </button>
+                            }
+                            }
+                    </div>
+
+                    <div id="nav-Application-@post.ID" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-application-tab">
+                        <table id="adminTable" class="table table-striped table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <td scope="col">Email</td>
+                                    <td scope="col">First Name</td>
+                                    <td scope="col">Last Name</td>
+                                    <td scope="col">CGPA</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                @{
+                                var ApplicationsArray = post.ApplicationsArray;
+                                }
+                                @{
+
+                                if (ApplicationsArray != null)
+                                {
+                                foreach (taske2.ViewModel.PersonVM item in ApplicationsArray)
+                                {
+
+                                <tr>
+                                    <td>@item.Email</td>
+                                    <td>@item.FirstName</td>
+                                    <td>@item.LastName</td>
+                                    <td>@item.CGPA</td>
+                                </tr>
+                                }
+                                }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+            <div class="card-footer">
+                <small class="text-muted ">Posted on: @post.Post_time</small>
+            </div>
+        </div>
+        }
+
+
+        }
+        }
+
+
+
+    </div>
+</div>
+@section scripts{
+
+<script>
+
+    $('#adminTable').dataTable({
+        paging: true,
+        autoWidth: false,
+        columns: [{ width: '20%' }, { width: '20%' }, { width: '20%' }, { width: '20%' }]
+    });
+</script>
+
+}

@@ -1,0 +1,75 @@
+﻿@model taske2.ViewModel.LanguageVM
+
+
+<div>
+    <div class="mt-5">
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h1>Languages</h1></div>
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h5>step 6 of 6</h5></div>
+        <hr />
+        <div class="card shadow-lg custom-bg">
+            <div class="card-body p-5">
+                <div class="row">
+                    <!--Details-->
+                    <div class="col-6" style="border-right: 1px solid #808080;">
+                        @using (Html.BeginForm("AddLanguage", "Resume", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="languageName">Name</label>
+                                @Html.EditorFor(model => model.LanguageName, new { htmlAttributes = new { @id = "languageName", @class = "form-control", @placeholder = "Language Name", @required = "true" } })
+                            </div>
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="Prof">Proficiency</label>
+                                @Html.DropDownListFor(model => model.Proficiency, Model.ListOfProficiency, new { @id = "Prof", @class = "form-control", @placeholder = "Proficiency", @required = "true" })
+                            </div>
+                            <div class="form-group col-10">
+                                <input type="submit" value="Save" class="btn btn-primary mt-2 float-right px-5">
+                            </div>
+
+                        }
+                    </div>
+
+                    <!-- Previous History-->
+                    <div class="col-6">
+
+                        @{
+                            var myArray = (taske2.ViewModel.LanguageVM[]) TempData["LanguageHistory"];
+
+                            if (myArray == null)
+                            {
+                                <hr />
+                                <h3 style="font-family: 'Julius Sans One', sans-serif;" class=" px-5 text-center">No Information Added!</h3>
+                                <hr />
+                            }
+                            else
+                            {
+                                <hr />
+                                <h3 style="font-family: 'Julius Sans One', sans-serif;" class=" px-5 text-center">Saved Information!</h3>
+                                <hr />
+                                foreach (taske2.ViewModel.LanguageVM item in myArray)
+                                {
+                                    <div class=" col-9">
+                                        <table class="px-5">
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Name</td>
+                                                <td class="col=8">@item.LanguageName</td>
+                                            </tr>
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">language proficiency</td>
+                                                <td class="col=8">@item.Proficiency</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <hr />
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

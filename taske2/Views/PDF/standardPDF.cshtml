@@ -1,0 +1,286 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!--FONTAWESOME CSS-->
+    <script src="https://kit.fontawesome.com/9fc9b91836.js" crossorigin="anonymous"></script>
+    <!--Google Material Ic-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+
+    <title>Resume</title>
+</head>
+<body class="container" style="font-family: 'Raleway', sans-serif;">
+
+
+    @{
+        var person = ViewBag.Person as taske2.ViewModel.PersonVM;
+        taske2.ViewModel.EducationVM[] educationArray = ViewBag.educationArray as taske2.ViewModel.EducationVM[];
+        taske2.ViewModel.WorkExperienceVM[] workArray = ViewBag.workArray as taske2.ViewModel.WorkExperienceVM[];
+        taske2.ViewModel.SkillsVM[] skillArray = ViewBag.skillsArray as taske2.ViewModel.SkillsVM[];
+
+
+
+        taske2.ViewModel.CertificationsVM[] certificatesArray  = ViewBag.certificatesArray as  taske2.ViewModel.CertificationsVM[];
+        taske2.ViewModel.LanguageVM[] languagesArray = ViewBag.languagesArray as taske2.ViewModel.LanguageVM[];
+
+    }
+
+    <!--Personal Information-->
+    <div class="container px-3 pt-3">
+        <div class="row p-2 shadow-sm rounded-lg bg-light">
+
+            @{
+                if (person != null)
+                {
+                    <div class="col-3">
+                        <img src="@Url.Content(person.ImagePath)" width="500" height="500" class=" rounded img-fluid img-thumbnail rounded" alt="Display Image" />
+                    </div>
+                    <div class="col-9">
+                        <p class="display-4">@(person.FirstName) @(person.LastName) </p>
+                        <i class="fas fa-envelope"></i> <a href="mailto:@(person.Email)?subject = Feedback&body = Message">@person.Email</a><br />
+                        <i class="fa fa-linkedin-square" aria-hidden="true"></i> <a href="@person.LinkedInProdil">@person.LinkedInProdil</a><br />
+                        <i class="fas fa-phone-square-alt"></i> <a href="tel:@person.Tel">@person.Tel</a><br />
+                        
+                        
+                        <div class="float-right">
+                            <i class="fas fa-calendar-day"></i><text> @person.DateOfBirth.Value.ToShortDateString() </text><br />
+                            <text>@person.Address</text> <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                    </div>
+                }
+
+
+            }
+
+        </div>
+
+    </div>
+
+    <!--Summary-->
+    <div class="container px-3">
+        <hr />
+        <p class="lead">
+            @if (person != null)
+            {
+                @person.Summary
+            }
+        </p>
+    </div>
+
+    <!--Work Experience-->
+    <div class="container px-3">
+        @{ if (workArray != null)
+            { <div class=" px-2 shadow-sm rounded-lg bg-light">
+                    <hr />
+                    <h2>Work Experience</h2>
+                    <hr />
+                </div>
+
+              <div class="col-12">
+
+                  @foreach (taske2.ViewModel.WorkExperienceVM work in workArray)
+                  {
+                      <table class="col-12">
+                          <tbody>
+                              <tr class="row">
+                                  <td class="col-2">Position: </td>
+                                  <td class="col-6">@work.Title</td>
+                                  <td class="col-4"><b>From: </b>@work.FromYear.Value.ToShortDateString() <b>To: </b>@work.ToYear.Value.ToShortDateString()</td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-2">Organization: </td>
+                                  <td class="col-6">@work.Company</td>
+                                  <td class="col-4"><i class="fas fa-map-marker-alt"></i> @work.Country</td>
+                              </tr>
+                              <tr class="row">
+                                  <td class="col-2">Description</td>
+                                  <td colspan="2" class="col-8">@work.Description</td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <hr />
+                  }
+
+
+              </div>
+            }
+        }
+    </div>
+
+    <!--Education-->
+    <div class="container px-3">
+        @{
+            if (educationArray != null)
+            {
+                <div class=" px-2 shadow-sm rounded-lg bg-light" >
+                    <hr />
+                    <h2>Education</h2>
+                    <hr />
+                </div>
+                <div class="col-12">
+
+                    @foreach (taske2.ViewModel.EducationVM edu in educationArray)
+                    {
+                        <table class="col-12">
+                            <tbody>
+                                <tr class="row">
+                                    <td class="col-2">Title</td>
+                                    <td class="col-6">@edu.TitleOfDiploma</td>
+                                    <td class="col-4"><b>From: </b>@edu.FromYear.Value.ToShortDateString() </td>
+                                    
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2">Degree</td>
+                                    <td class="col-6">@edu.Degree</td>
+                                    <td class="col-4"><b>To: </b>@edu.ToYear.Value.ToShortDateString()</td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2">Institute</td>
+                                    <td colspan="2" class="col-10">@edu.InstituteUniversity</td>
+                                    <td class="col-3"><i class="fas fa-map-marker-alt"></i> @edu.City @edu.Country</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+
+
+
+                    }
+
+
+
+                </div>
+
+            }
+        }
+    </div>
+
+    <!--Certificates-->
+    <div class="container px-3">
+        @{
+            if (certificatesArray != null)
+            {
+                <div class=" px-2 shadow-sm rounded-lg bg-light">
+                    <hr />
+                    <h2>Certificates</h2>
+                    <hr />
+                </div>
+
+                <div class="col-12">
+                    @foreach (taske2.ViewModel.CertificationsVM certificate in certificatesArray)
+                    {
+                        <table class="col-12">
+                            <tbody>
+                                <tr class="row">
+                                    <td class="col-2">Certificate Name</td>
+                                    <td class="col-7">@certificate.CertificationName</td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2">Authority</td>
+                                    <td class="col-10">@certificate.CertificateAuthority</td>
+
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2">Level</td>
+                                    <td  class="col-10"> @certificate.LevelCertification </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+                    }
+                </div>
+            }
+        }
+    </div>
+
+    <!--Skills-->
+    <div class="container px-3">
+        @{
+            if (skillArray != null)
+            {
+                <div class=" px-2 shadow-sm rounded-lg bg-light">
+                    <hr />
+                    <h2>Skills</h2>
+                    <hr />
+                </div>
+
+                <div class="col-12">
+
+                    <table class="col-12">
+                        <tbody>
+                            <tr class="row">
+
+                                @foreach (taske2.ViewModel.SkillsVM skill in skillArray)
+                                {
+                                    <td class="rounded px-2 mx-1 bg-dark text-light">@skill.SkillName</td>
+                                }
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr />
+                </div>
+            }
+        }
+    </div>
+
+    <!--Languages-->
+    <div class="container px-3">
+
+        @{
+            if (languagesArray != null)
+            {
+                <div class=" px-2 shadow-sm rounded-lg bg-light">
+                    <hr />
+                    <h2>Languages</h2>
+                    <hr />
+                </div>
+
+                <div class="col-12">
+                    @foreach (taske2.ViewModel.LanguageVM language in languagesArray)
+                    {
+                        <table class="col-12">
+                            <tbody>
+                                <tr class="row">
+                                    <td class="col-2">Language</td>
+                                    <td class="col-10">@language.LanguageName</td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="col-2">Proficiency</td>
+                                    <td class="col-10">@language.Proficiency</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <hr />
+
+                    }
+                </div>
+            }
+
+
+        }
+    </div>
+    <script>
+        window.print();
+    </script>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+</html>
+
+

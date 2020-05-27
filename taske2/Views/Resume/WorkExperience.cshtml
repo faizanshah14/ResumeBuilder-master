@@ -1,0 +1,115 @@
+﻿@model taske2.ViewModel.WorkExperienceVM
+@{
+    ViewBag.Title = "WorkExperience";
+}
+
+<div class="container col-12">
+    <div class="col-12 mx-auto mt-5 ">
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h1>Work Experience</h1></div>
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h5>step 3 of 6</h5></div>
+        <hr />
+
+        <div class="card shadow-lg custom-bg">
+            <div class="card-body p-5">
+                <div class="row">
+
+                    <!--Details-->
+                    <div class="col-6" style="border-right: 2px solid #808080;">
+                        @using (Html.BeginForm("AddOrUpdateExperience", "Resume", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            //Title
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="FirstName">Position</label>
+                                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control  form-control-sm", @placeholder = "Title", @required = "true" } })
+                            </div>
+
+                            //Organization
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="Organization">Organization</label>
+                                @Html.EditorFor(model => model.Company, new { htmlAttributes = new { id = "Organization", @class = "form-control  form-control-sm", @placeholder = "Organization", @required = "true" } })
+                            </div>
+
+                            //Duration
+                            <div class="col-10">
+                                <div class="form-row ">
+                                    <div class="form-group col-6">
+                                        <label class="font-weight-bold" for="FromYear">From Year</label>
+                                        @Html.EditorFor(model => model.FromYear, new { htmlAttributes = new { type = "date", id = "FromYear", @class = "form-control  form-control-sm", @placeholder = "From Year", @required = "true" } })
+                                    </div>
+                                    <div class="form-group col-6">
+                                        <label class="font-weight-bold" for="ToYear">To Year</label>
+                                        @Html.EditorFor(model => model.ToYear, new { htmlAttributes = new { type = "date", id = "ToYear", @class = "form-control  form-control-sm", @placeholder = "To Year", @required = "true" } })
+                                    </div>
+                                </div>
+                            </div>
+
+                            //Country
+                            <div class="form-group col-8">
+                                <label class="font-weight-bold" for="Country">Country</label>
+                                @Html.DropDownListFor(model => model.Country, Model.ListeOfCountries, new { id = "Country", @class = "form-control  form-control-sm", @placeholder = "Country", @required = "true" })
+                            </div>
+
+
+                            //Description
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="Desciption">Desciption</label>
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { id = "Desciption", @class = "form-control  form-control-sm", @placeholder = "Desciption", @required = "true" } })
+                            </div>
+
+                            <div class="form-group col-10">
+                                <input type="submit" value="Save" class="btn btn-primary mt-2 float-right px-5">
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Previous History-->
+                    <div class="col-6">
+
+                        @{
+                            var myArray = (taske2.ViewModel.WorkExperienceVM[])ViewData["WorkHistory"];
+
+                            if (myArray == null)
+                            {
+                                <hr />
+                                <h3 style="font-family: 'Julius Sans One', sans-serif;" class=" px-5 text-center">No Information Added!</h3>
+                                <hr />
+                            }
+                            else
+                            {
+                                <hr />
+                                <h3 style="font-family: 'Julius Sans One', sans-serif;" class=" px-5 text-center">Saved Information!</h3>
+                                <hr />
+                                foreach (taske2.ViewModel.WorkExperienceVM item in myArray)
+                                {
+
+                                    <div class=" col-9">
+                                        <table class="px-5">
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Position</td>
+                                                <td class="col=8">@item.Title</td>
+                                            </tr>
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Organization</td>
+                                                <td class="col=8">@item.Company</td>
+                                            </tr>
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Description</td>
+                                                <td class="col=8">@item.Description</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <hr />
+                                }
+
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <button onclick="location.href='@Url.Action("SkiCerfLang", "Resume")';return false;" class="btn btn-primary my-3 float-right px-5">Next Step</button>
+
+    </div>
+</div>

@@ -1,0 +1,124 @@
+﻿@model taske2.ViewModel.EducationVM
+@{
+    ViewBag.Title = "Education";
+}
+
+
+<div class="container col-12">
+    <div class="col-12 mx-auto mt-5 ">
+
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h1>Personal Education</h1></div>
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h5>step 2 of 6</h5></div>
+        <hr />
+
+        <div class="card shadow-lg custom-bg">
+            <div class="card-body p-5">
+                <div class="row">
+
+
+
+                    <!--Details-->
+                    <div class="col-6" style="border-right: 2px solid #808080;">
+
+                        @using (Html.BeginForm("AddOrUpdateEducation", "Resume", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken();
+
+                            <div class="form-group col-10">
+
+                                @Html.LabelFor(model => model.TitleOfDiploma, new { @class = "font-weight-bold" })
+                                @Html.EditorFor(model => model.TitleOfDiploma, new { htmlAttributes = new { @class = "form-control  form-control-sm", @placeholder = "Title", @required = "" } })
+
+                            </div>
+
+                            <div class="form-group col-10">
+                                @Html.LabelFor(model => model.InstituteUniversity, new { @class = "font-weight-bold" })
+                                @Html.EditorFor(model => model.InstituteUniversity, new { htmlAttributes = new { id = "Institute", @class = "form-control  form-control-sm", @placeholder = "Institution Name", @required = "" } })
+                            </div>
+
+                            <div class="form-group col-8">
+                                @Html.LabelFor(model => model.Degree, new { @class = "font-weight-bold" })
+                                @Html.EditorFor(model => model.Degree, new { htmlAttributes = new { id = "Degree", @class = "form-control  form-control-sm", @placeholder = "Degree", @required = "" } })
+                            </div>
+
+                            <div class="col-10">
+                                <div class="form-row ">
+                                    <div class="form-group col-5">
+                                        @Html.LabelFor(model => model.FromYear, new { @class = "font-weight-bold" })
+                                        @Html.EditorFor(model => model.FromYear, new { htmlAttributes = new { type = "date", id = "FromYear", @class = "form-control  form-control-sm", @placeholder = "From Year", @required = "" } })
+                                    </div>
+                                    <div class="form-group col-5">
+                                        @Html.LabelFor(model => model.ToYear, new { @class = "font-weight-bold" })
+                                        @Html.EditorFor(model => model.ToYear, new { htmlAttributes = new { type = "date", id = "ToYear", @class = "form-control  form-control-sm", @placeholder = "To Year", @required = "" } })
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-10">
+                                @Html.LabelFor(model => model.City, new { @class = "font-weight-bold" })
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @id = "City", @class = "form-control form-control-sm", @placeholder = "City", @required = "" } })
+                            </div>
+
+                            <div class="form-group col-10">
+                                @Html.LabelFor(model => model.Country, new { @class = "font-weight-bold" })
+                                @Html.DropDownListFor(model => model.Country, Model.ListOfCountry, new { id = "Country", @class = "form-control  form-control-sm", @placeholder = "Country", @required = "" })
+                            </div>
+
+                            <div class="form-group col-10">
+                                <input type="submit" id="save" value="Save" class="btn btn-primary mt-2 float-right px-5">
+                            </div>
+
+                        }
+                    </div>
+
+                    <!-- Previous History-->
+                    <div class="col-6">
+
+                        @{
+                            var myArray = (taske2.ViewModel.EducationVM[])ViewData["History"];
+
+                            if (myArray == null)
+                            {
+                                <hr />
+                                <h3 style="font-family: 'Julius Sans One', sans-serif;" class=" px-5 text-center">No Information Added!</h3>
+                                <hr />
+                            }
+                            else
+                            {
+                                <hr />
+                                <h3 style="font-family: 'Julius Sans One', sans-serif;" class=" px-5 text-center">Saved Information!</h3>
+                                <hr />
+                                foreach (taske2.ViewModel.EducationVM item in myArray)
+                                {
+
+                                    <div class=" col-9">
+                                        <table class="px-5">
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Title</td>
+                                                <td class="col=8">@item.TitleOfDiploma</td>
+                                            </tr>
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Degree</td>
+                                                <td class="col=8">@item.Degree</td>
+                                            </tr>
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Institution</td>
+                                                <td class="col=8">@item.InstituteUniversity</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <hr />
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!--NEXT STEP BUTTON -->
+        <button onclick="location.href='@Url.Action("WorkExperience", "Resume")';return false;" class="btn btn-primary mt-3 float-right px-5">Next Step</button>
+    </div>
+</div>

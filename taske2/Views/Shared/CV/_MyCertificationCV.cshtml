@@ -1,0 +1,97 @@
+﻿@model taske2.ViewModel.CertificationsVM
+
+
+
+<div>
+    <div class="mt-5">
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h1>Certifications</h1></div>
+        <div style="font-family: 'Julius Sans One', sans-serif;"><h5>step 5 of 6</h5></div>
+        <hr />
+        <div class="card shadow-lg custom-bg">
+            <div class="card-body p-5">
+                <div class="row">
+
+                    <!--Details-->
+                    <div class="col-6" style="border-right: 1px solid #808080;">
+                        @using (Html.BeginForm("AddCertification", "Resume", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="Name">Name</label>
+                                @Html.EditorFor(model => model.CertificationName, new { htmlAttributes = new { @id = "Name", @class = "form-control", @placeholder = "Certification Name", @required = "true" } })
+                            </div>
+
+
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="Authority">Authority</label>
+                                @Html.EditorFor(model => model.CertificateAuthority, new { htmlAttributes = new { @id = "Authority", @class = "form-control", @placeholder = "Certification Authority", @required = "true" } })
+                            </div>
+
+
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="level">Level</label>
+                                @Html.DropDownListFor(model => model.LevelCertification, Model.ListOfLevel, new { @id = "level", @class = "form-control", @placeholder = "Certification Level", @required = "true" })
+                            </div>
+
+
+                            <div class="form-group col-10">
+                                <label class="font-weight-bold" for="FromYear">Year</label>
+                                @Html.EditorFor(model => model.FromYear, new { htmlAttributes = new { type = "date", id = "FromYear", @class = "form-control  form-control-sm", @required = "true" } })
+                            </div>
+
+                            <div class="form-group col-10">
+                                <input type="submit" id="saveCertificate" value="Save" class="btn btn-primary mt-2 float-right px-5">
+                            </div>
+
+                        }
+
+
+                    </div>
+                    <!-- Previous History-->
+                    <div class="col-6">
+
+                        @{
+                            var myArray = (taske2.ViewModel.CertificationsVM[]) TempData["CertificatesHistory"];
+
+                            if (myArray == null)
+                            {
+                                <hr />
+                                <h3 style="font-family: 'Julius Sans One', sans-serif;" class=" px-5 text-center">No Information Added!</h3>
+                                <hr />
+                            }
+                            else
+                            {
+                                <hr />
+                                <h3 style="font-family: 'Julius Sans One', sans-serif;" class=" px-5 text-center">Saved Information!</h3>
+                                <hr />
+                                foreach (taske2.ViewModel.CertificationsVM item in myArray)
+                                {
+                                    <div class=" col-9">
+                                        <table class="px-5">
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Name</td>
+                                                <td class="col=8">@item.CertificationName</td>
+                                            </tr>
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Authority</td>
+                                                <td class="col=8">@item.CertificateAuthority</td>
+                                            </tr>
+                                            <tr class="px-5 col-12">
+                                                <td class="col-4">Level</td>
+                                                <td class="col=8">@item.LevelCertification</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <hr />
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
